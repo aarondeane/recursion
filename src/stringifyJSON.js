@@ -7,12 +7,14 @@ var stringifyJSON = function(obj) {
   // identify the type of the object
   // apply stringification depending on the case
   // edge cases are dates, functions, toJSON, and instances of "new" class creation
-  if(obj === undefined || obj === null || typeof obj === 'function') {
+  if(obj === undefined || typeof obj == 'function') {
     return null;
+  }else if (obj === null) {
+    return 'null';
   }else if (typeof obj === 'string') {
     return '"' + obj + '"';
   }else if (typeof obj === 'number' || typeof obj === 'boolean') {
-    return obj;
+    return obj.toString();
   }else if (Array.isArray(obj)) {
     //Will need to iterate through each element of the array
     let result = obj.map(function(element){
@@ -26,7 +28,9 @@ var stringifyJSON = function(obj) {
     //again need to iterate through each object property
     //evaluate both the key and value of each
     for(var key in obj) {
-      result.push(stringifyJSON(key)+':'+stringifyJSON(obj[key]));
+      if(obj[key] !== undefined && typeof obj[key] != 'function'){
+        result.push(stringifyJSON(key)+':'+stringifyJSON(obj[key]));
+      }
     }
     // return the newly converted string version of the input object
     return '{' + result.join(',') + '}';
