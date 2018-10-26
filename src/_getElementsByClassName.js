@@ -9,7 +9,7 @@ var _getElementsByClassName = function(className) {
   var elementsMatchingClass = []; //variable to store DOM elements that match className
   
   var childrenByClass = function(elem) {
-    if(elem.classList.contains(className)) {//check element classList values against className regex
+    if(elem.classList.contains(className)) {//check element classList values against className
       elementsMatchingClass.push(elem);//push the matching element to the results array
     }
       
